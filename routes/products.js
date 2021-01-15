@@ -1,13 +1,12 @@
 const router = require("express").Router();
 const { log } = require("debug");
 const controller = require("../controllers/products");
-const Product = require("../models/products");
 
 router.get("/", (req, res, next) => {
    controller
       .find()
       .then((result) => {
-         res.status(200).json([...result]);
+         res.status(200).json(result);
       })
       .catch((err) => {
          res.status(err.status || 500).json(err);
@@ -25,9 +24,7 @@ router.post("/", (req, res, next) => {
    controller
       .insert(product)
       .then((result) => {
-         res.status(201).json({
-            ...result,
-         });
+         res.status(201).json(result);
       })
       .catch((err) => {
          res.status(err.status || 500).json(err);
@@ -53,7 +50,7 @@ router.patch("/:id", (req, res) => {
             : res.status(422).json(message);
       })
       .catch((err) => {
-         res.status(422);
+         res.status(422).json(err);
       });
 });
 

@@ -15,6 +15,14 @@ const insert = async (data) => {
 };
 
 const inspect = async (id) => {
-   return Products.findByPk(id);
+   return Products.findByPk(id).then(data => {
+      Products.update({ isPublished: true }, {
+         where: {
+            isPublished: false
+         }
+      });
+
+      return data;
+   });
 };
 module.exports = { find, insert, inspect };
