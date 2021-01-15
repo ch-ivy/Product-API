@@ -3,8 +3,9 @@ const { log } = require("debug");
 const controller = require("../controllers/products");
 const Product = require("../models/products");
 
-router.get("/", async (req, res, next) => {
-   await Product.findAll()
+router.get("/", (req, res, next) => {
+   controller
+      .find()
       .then((result) => {
          res.status(200).json([...result]);
       })
@@ -14,13 +15,15 @@ router.get("/", async (req, res, next) => {
 });
 
 router.post("/", (req, res, next) => {
-   Product.create({
+   const product = {
       name: req.body.name,
       price: req.body.price,
       mrp: req.body.mrp,
       stock: req.body.stock,
-      isPublished: false,
-   })
+   };
+
+   controller
+      .insert(product)
       .then((result) => {
          res.status(201).json({
             ...result,
@@ -34,7 +37,8 @@ router.post("/", (req, res, next) => {
 router.patch("/:id", (req, res) => {
    const id = req.params.id;
    var message = [];
-   Product.findByPk(id)
+   controller
+      .inspect(id)
       .then((data) => {
          if (data) {
             if (data.mrp < data.price) {
