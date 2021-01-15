@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "node bin/www",
+    "start": "nodemon bin/www",
     "prestart": "npm install",
     "pretest": "npm install",
     "test": "cross-env PORT=8001 ./node_modules/.bin/mocha test"
@@ -20,7 +20,7 @@
     "mocha-multi-reporters": "^1.1.7",
     "morgan": "~1.9.1",
     "sequelize": "^6.3.3",
-    "sqlite3": "^5.0.0"
+    "sqlite3": "^5.0.1"
   },
   "devDependencies": {
     "bluebird": "^3.7.2",
